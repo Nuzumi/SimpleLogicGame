@@ -1,0 +1,7 @@
+{
+    "board":
+    [
+        [ {"number":1,"Position":{"x":0.0,"y":0.0,"z":0.0}},{"number":3,"Position":{"x":1.0,"y":0.0,"z":0.0}}],
+        [ {"number":2,"Position":{"x":0.0,"y":0.0,"z":1.0}},{"number":4,"Position":{"x":1.0,"y":0.0,"z":1.0}}]],
+    "playerPosition":{"x":0,"y":0}
+}
