@@ -124,6 +124,61 @@
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "dc1bd2d6-07d8-44c5-b1b7-ec37ab73ca2f",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "01b02eb8-da6c-4a9d-aa5f-7a9f31a71318",
+                    "path": "<Touchscreen>/delta/y",
+                    "interactions": "",
+                    "processors": "AxisDeadzone(min=-0.125,max=-0.925)",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "81a666e5-14cc-4329-a587-57762c9752e7",
+                    "path": "<Touchscreen>/delta/y",
+                    "interactions": "",
+                    "processors": "AxisDeadzone",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "01df23cb-6a2b-46d1-aeea-c872c3973eec",
+                    "path": "<Touchscreen>/delta/x",
+                    "interactions": "",
+                    "processors": "AxisDeadzone(min=-0.125,max=-0.925)",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "d925f259-6ef3-4f82-93f7-4128881dda6d",
+                    "path": "<Touchscreen>/delta/x",
+                    "interactions": "",
+                    "processors": "AxisDeadzone",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

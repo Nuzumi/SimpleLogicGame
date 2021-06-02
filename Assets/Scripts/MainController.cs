@@ -18,9 +18,8 @@ public class MainController : MonoBehaviour
         playerController = new PlayerController.PlayerController();
     }
 
-    public void StartGame(BoardControllerState controllerState)
+    public void StartGame(BoardState controllerState)
     {
-        boardController.Dispose();
         boardController.SetState(controllerState);
         boardController.CreateBoard();
         

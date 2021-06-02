@@ -7,10 +7,10 @@ namespace PlayerController
     {
         private static Vector3 offset = new Vector3(.5f, 0, .5f);
 
-        private BoardControllerState state;
+        private BoardState state;
         private Transform player;
         
-        public void Setup(BoardControllerState state)
+        public void Setup(BoardState state)
         {
             this.state = state;
             player = SceneElements.Instance.player;

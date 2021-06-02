@@ -20,12 +20,13 @@ namespace InputManager
             var value = playerInputActions.Movement.ReadValue<Vector2>();
             Vector2Int moveValue = new Vector2Int((int)value.x, (int)value.y);
             MainController mainController = MainController.Instance;
+            Debug.Log($"Move value: {moveValue.x},{moveValue.y}");
             
             if(!mainController.boardController.CanMovePlayer(moveValue))
                 return;
-            
-            mainController.boardController.Move(moveValue);
+
             mainController.playerController.Move(moveValue);
+            mainController.boardController.Move();
         }
     }
 }

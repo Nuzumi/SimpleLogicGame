@@ -3,9 +3,12 @@ using UnityEngine;
 
 namespace Board
 {
-    public class BoardController : IDisposable
+    public class BoardController
     {
-        private BoardControllerState state;
+        public event Action OnBoardWon;
+        public event Action OnNoMoreMoves;
+
+        private BoardState state;
         private BoardCreator creator;
 
         public BoardController()
@@ -13,7 +16,7 @@ namespace Board
             creator = new BoardCreator();
         }
 
-        public void SetState(BoardControllerState state) => this.state = state;
+        public void SetState(BoardState state) => this.state = state;
 
         public void CreateBoard()
         {
@@ -21,10 +24,24 @@ namespace Board
             creator.CreateBoard(state.board);
         }
 
-        public void Move(Vector2Int vector)
+        public void Move()
         {
-            Vector2Int newPosition = state.playerPosition + vector;
-            BoardElementState targetState = state.board[newPosition.x, newPosition.y];
+            PerformMoveAction();
+
+            if (state.GetMovesLeft() == 0)
+            {
+                OnBoardWon?.Invoke();
+                return;
+            }
+
+            if (!state.HasMoveToMake())
+                OnNoMoreMoves?.Invoke();
+                
+        }
+
+        private void PerformMoveAction()
+        {
+            BoardElementState targetState = state.board[state.playerPosition.x, state.playerPosition.y];
             targetState.Number--;
         }
 
@@ -48,17 +65,10 @@ namespace Board
         private bool WouldMoveOutOfBoard(Vector2Int vector)
         {
             Vector2Int newPosition = state.playerPosition + vector;
-            if (newPosition.x < 0 || newPosition.y < 0)
-                return true;
-
-            if (newPosition.x >= state.board.GetLength(0) || newPosition.y >= state.board.GetLength(1))
+            if (!state.board.FitInBounds(newPosition))
                 return true;
 
             return state.board[newPosition.x, newPosition.y] == null;
-        }
-
-        public void Dispose()
-        {
         }
     }
 }
