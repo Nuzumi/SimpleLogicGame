@@ -6,10 +6,12 @@ namespace InputManager
     public class InputManager : MonoBehaviour
     {
         private InputController.PlayerInputActions playerInputActions;
+        private bool canMove;
 
         private void Start()
         {
             var c = new InputController();
+            canMove = true;
             playerInputActions = c.PlayerInput;
             playerInputActions.Enable();
             playerInputActions.Movement.performed += MovementInput;
@@ -17,6 +19,9 @@ namespace InputManager
 
         private void MovementInput(InputAction.CallbackContext obj)
         {
+            if(!canMove)
+                return;
+            
             var value = playerInputActions.Movement.ReadValue<Vector2>();
             Vector2Int moveValue = new Vector2Int((int)value.x, (int)value.y);
             MainController mainController = MainController.Instance;
@@ -25,8 +30,14 @@ namespace InputManager
             if(!mainController.boardController.CanMovePlayer(moveValue))
                 return;
 
-            mainController.playerController.Move(moveValue);
-            mainController.boardController.Move();
+            canMove = false;
+            mainController.playerController.Move(moveValue, OnMove);
+        }
+        
+        private void OnMove()
+        {
+            MainController.Instance.boardController.Move();
+            canMove = true;
         }
     }
 }

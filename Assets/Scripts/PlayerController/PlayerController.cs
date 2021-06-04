@@ -1,4 +1,6 @@
+using System;
 using Board;
+using DG.Tweening;
 using UnityEngine;
 
 namespace PlayerController
@@ -14,18 +16,27 @@ namespace PlayerController
         {
             this.state = state;
             player = SceneElements.Instance.player;
-            SetPosition();
+            player.position = GetPlayerPosition();
         }
         
-        public void Move(Vector2Int move)
+        public void Move(Vector2Int move, Action onMoveEnd)
         {
             state.playerPosition += move;
-            SetPosition();
+            SetPosition(onMoveEnd);
         }
 
-        private void SetPosition()
+        private void SetPosition(Action onComplete)
         {
-            player.position = new Vector3(state.playerPosition.x, 0, state.playerPosition.y) + offset;
+            var position = GetPlayerPosition();
+            player.DOMove(position, .3f)
+                .OnComplete(() => onComplete())
+                .SetEase(Ease.OutBack);
+
+        }
+
+        private Vector3 GetPlayerPosition()
+        {
+            return new Vector3(state.playerPosition.x, 0, state.playerPosition.y) + offset;
         }
     }
 }
